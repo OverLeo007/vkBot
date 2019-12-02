@@ -33,7 +33,7 @@ def msg_with_photo(user_id, message, pic_url):
 
 session = requests.Session()
 # API-ключ созданный ранее
-token = "1455eb26498f0d6ab33db6575afbd7d7e604bef57ee87b2f86a38269f4f227d5ff38f4cf3750cf5f21f36"
+token = ""
 
 # Авторизуемся как сообщество
 vk_session = vk_api.VkApi(token=token)
