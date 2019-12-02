@@ -5,13 +5,13 @@ import bs4
 class VkBot:
 
     def __init__(self, user_id):
-        print(' создан экземпляр')
+        # print(' создан экземпляр')
         self._USER_ID = user_id
-        self._USERNAME = self._get_user_name(user_id)
+        self._USERNAME = self.get_user_name(user_id)
 
         self._COMMANDS = ["ПРИВЕТ", "ВРЕМЯ", "ПОКА", 'РАСПИСАНИЕ']
 
-    def _get_user_name(self, user_id):
+    def get_user_name(self, user_id):
         request = requests.get("https://vk.com/id" + str(user_id))
         bs = bs4.BeautifulSoup(request.text, "html.parser")
 
