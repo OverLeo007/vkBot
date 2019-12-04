@@ -20,7 +20,7 @@ def sentrp(user_id, picname):
     upload = vk_api.VkUpload(vk_session)
     photo = upload.photo_messages(picname)[0]
     vk_session.method('messages.send',
-                      {'user_id': '225133650', 'random_id': random.randint(0, 2048),
+                      {'user_id': user_id, 'random_id': random.randint(0, 2048),
                        'attachment': f"photo{photo['owner_id']}_{photo['id']}"})
 
 
@@ -28,12 +28,13 @@ logging = False
 
 session = requests.Session()
 # API-ключ созданный ранее
-token = ""
+token = "1455eb26498f0d6ab33db6575afbd7d7e604bef57ee87b2f86a38269f4f227d5ff38f4cf3750cf5f21f36"
 
 # Авторизуемся как сообщество
 vk_session = vk_api.VkApi(token=token)
 ses = vk.Session(access_token=token)
 api = vk.API(ses)
+# vk_api.
 
 # Работа с сообщениями
 longpoll = VkLongPoll(vk_session)
@@ -64,6 +65,14 @@ for event in longpoll.listen():
                         write_msg(id, event.text.split()[1])
                     except:
                         pass
+            elif event.text.lower().startswith('кто'):
+                texte = event.text
+                if event.text.endswith('?'):
+                    texte = event.text[:-1]
+                phrase, who = bot.new_message(texte)
+                id = random.choice(get_members())
+                guy = f"[id{id}|{' '.join(VkBot(id).get_user_name())}]"
+                write_msg(event.user_id, phrase + guy + ' ' + who)
             else:
                 write_msg(event.user_id, bot.new_message(event.text))
             text = 'Text: ' + event.text
